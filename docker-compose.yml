@@ -11,7 +11,7 @@ services:
     ports:
       - 5173:5173
     volumes:
-      - ./src/laravel_project:/var/www
+      - ./src/laravel_project:/var/www/html
       - ./php/php.ini:/usr/local/etc/php/php.ini
   # nginx
   api_test_nginx:
@@ -20,7 +20,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./src/laravel_project:/var/www
+      - ./src/laravel_project:/var/www/html
   # MariaDB のコンテナ
   api_test_mariadb:
     container_name: api_test_mariadb
