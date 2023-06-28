@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  # laravel
+  api_test_laravel:
+    container_name: api_test_laravel
+    build:
+      context: .
+      dockerfile: ./php/Dockerfile
+    tty: true
+    ports:
+      - 5173:5173
+    volumes:
+      - ./src/laravel_project:/var/www
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+  # nginx
+  api_test_nginx:
+    container_name: api_test_nginx
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./src/laravel_project:/var/www
+  # MariaDB のコンテナ
+  api_test_mariadb:
+    container_name: api_test_mariadb
+    image: mariadb:10.5.4
+    environment:
+      # ユーザー名やパスワードなどは適宜変更してください
+      MYSQL_DATABASE: $DB_NAME
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+    volumes:
+      - ./db/data:/var/lib/mysql
+  api_test_phpmyadmin:
+    container_name: api_test_phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: api_test_mariadb
+    depends_on:
+      - api_test_mariadb
+    ports:
+      - 8080:80
+    volumes:
+      - /sessions
