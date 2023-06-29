@@ -3,5 +3,5 @@
 .vscode
 db/data/*
 db/data/.gitkeep
-src/sl_laravel/*
+src/*
 !src/index.php

@@ -3,7 +3,6 @@ FROM php:8.1-fpm
 # Laravelのvite用に解放
 EXPOSE 5173
 
-RUN sed -i '/jessie-updates/d' /etc/apt/sources.list 
 # RUNコマンドは、buildしたときに元となるdockerイメージに対して実行する処理を記述する。
 # \（バックスラッシュ）を用いて、複数行に分けることが可能。
 # パッケージ一覧を更新
